@@ -16,3 +16,5 @@ RUN apt-get update && apt-get install -y \
 	libxml2-dev \
 	zip \
 	unzip
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
