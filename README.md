@@ -1,4 +1,4 @@
-# Thecnical test
+# Technical test
 ## Start server
 If you have **docker** and **docker-compose** packages installed, you will only need to run this on the project root
 to start the server:
@@ -87,9 +87,7 @@ curl --request POST \
   --header 'Accept: application/json' \
   --header 'Authorization: Bearer {([])}' \
   --header 'Content-Type: application/json' \
-  --data '{
-        "url": "https://youtu.be/dQw4w9WgXcQ"
-}'
+  --data '{ "url": "https://youtu.be/dQw4w9WgXcQ" }'
 ```
 
 
