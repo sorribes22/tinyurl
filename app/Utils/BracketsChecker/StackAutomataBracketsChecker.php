@@ -24,6 +24,7 @@ class StackAutomataBracketsChecker implements BracketsChecker
 				};
 
 				if ($match) array_pop($stack);
+				else $stack[] = $char;
 			}
 		}
 

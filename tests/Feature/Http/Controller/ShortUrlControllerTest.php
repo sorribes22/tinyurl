@@ -18,18 +18,18 @@ class ShortUrlControllerTest extends TestCase
 	public function can_cut_an_url()
 	{
 		Http::fake([
-			"https://tinyurl.com/*" => Http::response("https://tinyurl.com/2634hs2a")
+			'https://tinyurl.com/*' => Http::response('https://tinyurl.com/2634hs2a')
 		]);
 
 		$body = [
-			"url" => "https://youtu.be/dQw4w9WgXcQ"
+			'url' => 'https://youtu.be/dQw4w9WgXcQ'
 		];
 
 		$response = $this->postJson('api/v1/short-urls', $body);
 
 		$response->assertSuccessful();
 		$response->assertJson([
-			"url" => "https://tinyurl.com/2634hs2a"
+			'url' => 'https://tinyurl.com/2634hs2a'
 		]);
 	}
 
@@ -37,18 +37,18 @@ class ShortUrlControllerTest extends TestCase
 	public function can_handle_http_errors()
 	{
 		Http::fake([
-			"https://tinyurl.com/*" => Http::response('error', 500)
+			'https://tinyurl.com/*' => Http::response('error', 500)
 		]);
 
 		$body = [
-			"url" => "https://youtu.be/dQw4w9WgXcQ"
+			'url' => 'https://youtu.be/dQw4w9WgXcQ'
 		];
 
-		$response = $this->postJson("api/v1/short-urls", $body);
+		$response = $this->postJson('api/v1/short-urls', $body);
 
 		$response->assertStatus(502);
 		$response->assertJson([
-			"message" => "Service unavailable"
+			'message' => 'Service unavailable'
 		]);
 	}
 
@@ -56,10 +56,10 @@ class ShortUrlControllerTest extends TestCase
 	public function validates_url()
 	{
 		$body = [
-			"url" => "Some random string"
+			'url' => 'Some random string'
 		];
 
-		$response = $this->postJson("api/v1/short-urls", $body);
+		$response = $this->postJson('api/v1/short-urls', $body);
 
 		$response->assertStatus(422);
 	}
