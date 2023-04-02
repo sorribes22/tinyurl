@@ -1,5 +1,5 @@
 # Technical test
-## Start server
+## Starting the server
 If you have **docker** and **docker-compose** packages installed, you will only need to run this on the project root
 to start the server:
 ```bash
