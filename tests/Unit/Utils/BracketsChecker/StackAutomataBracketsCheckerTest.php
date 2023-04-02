@@ -12,6 +12,7 @@ class StackAutomataBracketsCheckerTest extends TestCase
 	{
 		$bracketsChecker = new StackAutomataBracketsChecker();
 		$tests = [
+			"" => true,
 			"{}" => true,
 			"{}[]()" => true,
 			"{)" => false,

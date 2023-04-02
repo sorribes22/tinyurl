@@ -24,15 +24,11 @@ class BracketsAuthenticate
 	 */
     public function handle(Request $request, Closure $next): Response
     {
-		if (!$request->hasHeader('authorization')) $this->unauthenticated();
+		$bearerToken = $request->bearerToken();
 
-		$header = explode(' ', $request->header('authorization'));
+		if ($bearerToken === null) $this->unauthenticated();
 
-		if (sizeof($header) != 2) $this->unauthenticated();
-
-		if ($header[0] != 'Bearer') $this->unauthenticated();
-
-		if (!$this->bracketsChecker->passes($header[1])) $this->unauthenticated();
+		if (!$this->bracketsChecker->passes($bearerToken)) $this->unauthenticated();
 
         return $next($request);
     }

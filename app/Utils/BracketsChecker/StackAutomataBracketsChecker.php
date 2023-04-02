@@ -8,6 +8,8 @@ class StackAutomataBracketsChecker implements BracketsChecker
 	{
 		$stack = [];
 
+		if (strlen($token) == 0) return true;
+
 		if (strlen($token) % 2 != 0) return false;
 
 		foreach (str_split($token) as $char)
