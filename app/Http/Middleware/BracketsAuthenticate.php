@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Utils\BracketsChecker\StackAutomataBracketsChecker;
+use App\Utils\BracketsChecker\BracketsChecker;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
@@ -10,15 +10,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BracketsAuthenticate
 {
-	public function __construct(private StackAutomataBracketsChecker $bracketsChecker)
+	public function __construct(private readonly BracketsChecker $bracketsChecker)
 	{
 	}
 
 	/**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+	 * Handle an incoming request.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @throws \Illuminate\Auth\AuthenticationException
+	 */
     public function handle(Request $request, Closure $next): Response
     {
 		if (!$request->hasHeader('authorization')) $this->unauthenticated();
@@ -34,6 +37,9 @@ class BracketsAuthenticate
         return $next($request);
     }
 
+	/**
+	 * @throws \Illuminate\Auth\AuthenticationException
+	 */
 	protected function unauthenticated()
 	{
 		throw new AuthenticationException(
